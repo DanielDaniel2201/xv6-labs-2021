@@ -4,7 +4,7 @@
 int main(int argc, char *argv[]) {
     if (argc != 2) {
         char *msg = "Usage: sleep <positive number>\ne.g. sleep 10\n";
-        write(1, msg, strlen(msg));
+        fprintf(2, msg);
         exit(1);
     }
     sleep(atoi(argv[1]));
