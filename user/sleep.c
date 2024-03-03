@@ -3,7 +3,7 @@
 
 int main(int argc, char *argv[]) {
     if (argc != 2) {
-        char *msg = "Usage: sleep <positive number>\n e.g. sleep 10\n";
+        char *msg = "Usage: sleep <positive number>\ne.g. sleep 10\n";
         write(1, msg, strlen(msg));
         exit(1);
     }
