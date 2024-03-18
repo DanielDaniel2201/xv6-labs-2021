@@ -21,6 +21,7 @@ int main(int argc, char *argv[]) {
         char buf[1];
         while (read(p1[0], buf, 1) != 1) {}
         fprintf(1, "%d: received pong\n", getpid());
+        wait(0);
         exit(0);
     }
 
