@@ -29,7 +29,6 @@ void new_proc(int p[2]) {
     int n;
     int new_p[2];
     pipe(new_p);
-    // int flag; // indicates whether there are still numbers left
     if (read(p[0], &prime, sizeof(int)) != 4) {
         fprintf(2, "child process failed to read from its parent");
         exit(1);
