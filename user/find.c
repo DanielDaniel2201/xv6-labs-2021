@@ -7,11 +7,6 @@ void find(char *name, char *dir) {
     int fd;
     struct dirent de;
     struct stat st;
-    char buf[512], *p;
-    strcpy(buf, dir);
-    p = buf + strlen(buf);
-    *p++ = '/';
-    strcpy(p, name);
 
     if ((fd = open(dir, 0)) < 0){
         fprintf(2, "find: cannot open %s\n", dir);
@@ -22,11 +17,13 @@ void find(char *name, char *dir) {
         if (de.inum == 0 || strcmp(de.name, ".")  == 0 || strcmp(de.name, "..") == 0) {
             continue;
         }
+        // form a temporary path for the current directory entry
         char tmp_buf[512], *tmp;
         strcpy(tmp_buf, dir);
         tmp = tmp_buf + strlen(tmp_buf);
         *tmp++ = '/';
         strcpy(tmp, de.name);
+        // stat the directory to check its type
         if(stat(tmp_buf, &st) < 0){
             fprintf(2, "find: cannot stat %s\n", tmp_buf);
             continue;
@@ -34,11 +31,10 @@ void find(char *name, char *dir) {
         switch (st.type) {
             case T_FILE:
                 if (strcmp(de.name, name) == 0) {
-                    fprintf(1, "%s\n", buf);
+                    fprintf(1, "%s\n", tmp_buf);
                 }
                 break;
             case T_DIR:
-                *p++ = '/';
                 find(name, tmp_buf);
                 break;
         }
